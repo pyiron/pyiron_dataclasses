@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 import numpy as np
-from typing import List
+from typing import List, Optional
 
 
 from pyiron_dataclasses.v1.atomistic import (
@@ -124,8 +124,15 @@ class SphinxRicQN:
 
 
 @dataclass
+class SphinxEvalForces:
+    file: str
+
+
+@dataclass
 class SphinxMain:
-    ric_qn: SphinxRicQN
+    ric_qn: Optional[SphinxRicQN]
+    eval_forces: Optional[SphinxEvalForces]
+    scf_diag: Optional[ScfDiag]
 
 
 @dataclass
