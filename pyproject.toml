@@ -4,9 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pyiron_dataclasses"
-description = "Core components of the pyiron integrated development environment (IDE) for computational materials science"
+description = "Dataclasses for the pyiron workflow framework"
 authors = [
-    { name = "Max-Planck-Institut für Eisenforschung GmbH - Computational Materials Design (CM) Department", email = "pyiron@mpie.de" },
+    { name = "Jan Janssen", email = "janssen@mpie.de" },
 ]
 readme = "README.md"
 license = { file = "LICENSE" }
