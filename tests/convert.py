@@ -73,14 +73,14 @@ def convert_sphinx_job_dict(job_dict: dict) -> SphinxJob:
     )
     return SphinxJob(
         executable=Executable(
-            version=job_dict["executable"]["executable"]["version"],
-            name=job_dict["executable"]["executable"]["name"],
-            operation_system_nt=job_dict["executable"]["executable"][
+            version=job_dict["executable"]["version"],
+            name=job_dict["executable"]["name"],
+            operation_system_nt=job_dict["executable"][
                 "operation_system_nt"
             ],
-            executable=job_dict["executable"]["executable"]["executable"],
-            mpi=job_dict["executable"]["executable"]["mpi"],
-            accepted_return_codes=job_dict["executable"]["executable"][
+            executable=job_dict["executable"]["executable"],
+            mpi=job_dict["executable"]["mpi"],
+            accepted_return_codes=job_dict["executable"][
                 "accepted_return_codes"
             ],
         ),
@@ -92,7 +92,7 @@ def convert_sphinx_job_dict(job_dict: dict) -> SphinxJob:
             qid=job_dict["server"]["qid"],
             cores=job_dict["server"]["cores"],
             threads=job_dict["server"]["threads"],
-            new_hdf=job_dict["server"]["new_h5"],
+            new_hdf=job_dict["server"]["new_hdf"],
             run_time=job_dict["server"]["run_time"],
             memory_limit=job_dict["server"]["memory_limit"],
             accept_crash=job_dict["server"]["accept_crash"],
@@ -954,7 +954,7 @@ def _sort_dictionary_from_datacontainer(input_dict: dict) -> dict:
             else:
                 ind_dict[int(ind)] = key
                 content_dict[key] = recursive_sort(input_value=v)
-        else:
+        elif k != "DICT_VERSION":
             content_dict[k] = recursive_sort(input_value=v)
     if content_lst_flag:
         return [ind_dict[ind] for ind in sorted(list(ind_dict.keys()))]
@@ -966,7 +966,7 @@ def _sort_dictionary_from_datacontainer(input_dict: dict) -> dict:
     elif len(ind_dict) == 0:
         return content_dict
     else:
-        raise KeyError()
+        raise KeyError(ind_dict, content_dict)
 
 
 def convert_datacontainer_to_dictionary(data_container_dict: dict) -> dict:

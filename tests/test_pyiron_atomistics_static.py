@@ -16,7 +16,7 @@ class TestPyironAtomisticsStatic(TestCase):
     def test_sphinx(self):
         ureg = UnitRegistry()
         job_dict = read_dict_from_hdf(
-            file_name=os.path.join(os.path.dirname(__file__), "static", "sx.h5"),
+            file_name=os.path.join(os.path.dirname(__file__), "pyiron_atomistics_0_6_13", "sx.h5"),
             h5_path="/sx",
             recursive=True,
             slash='ignore',
@@ -27,7 +27,7 @@ class TestPyironAtomisticsStatic(TestCase):
     def test_lammps(self):
         ureg = UnitRegistry()
         job_dict = read_dict_from_hdf(
-            file_name=os.path.join(os.path.dirname(__file__), "static", "lmp.h5"),
+            file_name=os.path.join(os.path.dirname(__file__), "pyiron_atomistics_0_6_13", "lmp.h5"),
             h5_path="/lmp",
             recursive=True,
             slash='ignore',
@@ -38,7 +38,7 @@ class TestPyironAtomisticsStatic(TestCase):
     def test_vasp(self):
         ureg = UnitRegistry()
         job_dict = read_dict_from_hdf(
-            file_name=os.path.join(os.path.dirname(__file__), "static", "vasp.h5"),
+            file_name=os.path.join(os.path.dirname(__file__), "pyiron_atomistics_0_6_13", "vasp.h5"),
             h5_path="/vasp",
             recursive=True,
             slash='ignore',
@@ -48,7 +48,7 @@ class TestPyironAtomisticsStatic(TestCase):
 
     def test_all(self):
         ureg = UnitRegistry()
-        static_folder = os.path.join(os.path.dirname(__file__), "static")
+        static_folder = os.path.join(os.path.dirname(__file__), "pyiron_atomistics_0_6_13")
         energy_dict = {
             "sx.h5": -228.7831594379917 * ureg.eV,
             "lmp.h5": -9428.45286561574 * ureg.eV,
