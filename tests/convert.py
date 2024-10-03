@@ -146,16 +146,16 @@ def convert_sphinx_job_dict(job_dict: dict) -> SphinxJob:
             ric_qn=None,
             eval_forces=SphinxEvalForces(file=sphinx_input_parameter_dict["sphinx"]["main"]["evalForces"]["file"]),
             scf_diag=ScfDiag(
-                rho_mixing=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"]["rhoMixing"],
-                spin_mixing=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"]["spinMixing"],
-                delta_energy=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"]["dEnergy"],
-                max_steps=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"]["maxSteps"],
+                rho_mixing=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0]["rhoMixing"],
+                spin_mixing=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0]["spinMixing"],
+                delta_energy=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0]["dEnergy"],
+                max_steps=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0]["maxSteps"],
                 preconditioner=SphinxPreConditioner(
-                    type=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"]["preconditioner"]["type"],
-                    scaling=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"]["preconditioner"]["scaling"],
-                    spin_scaling=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"]["preconditioner"]["spinScaling"],
+                    type=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0]["preconditioner"]["type"],
+                    scaling=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0]["preconditioner"]["scaling"],
+                    spin_scaling=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0]["preconditioner"]["spinScaling"],
                 ),
-                block_ccg={},
+                block_ccg=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0]["blockCCG"],
             ),
         )
     return SphinxJob(
