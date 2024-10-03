@@ -61,15 +61,24 @@ from pyiron_dataclasses.v1.vasp import (
 )
 
 
-def convert_sphinx_job_dict(job_dict: dict) -> SphinxJob:
+def get_dataclass(job_dict):
+    funct_dict = {
+        "<class 'pyiron_atomistics.lammps.lammps.Lammps'>": _convert_lammps_job_dict,
+        "<class 'pyiron_atomistics.sphinx.sphinx.Sphinx'>": _convert_sphinx_job_dict,
+        "<class 'pyiron_atomistics.vasp.vasp.Vasp'>": _convert_vasp_job_dict,
+    }
+    return funct_dict[job_dict["TYPE"]](job_dict=job_dict)
+
+
+def _convert_sphinx_job_dict(job_dict: dict) -> SphinxJob:
     ureg = UnitRegistry()
-    sphinx_input_parameter_dict = convert_datacontainer_to_dictionary(
+    sphinx_input_parameter_dict = _convert_datacontainer_to_dictionary(
         data_container_dict=job_dict["input"]["parameters"]
     )
-    generic_input_dict = convert_generic_parameters_to_dictionary(
+    generic_input_dict = _convert_generic_parameters_to_dictionary(
         generic_parameter_dict=job_dict["input"]["generic"],
     )
-    output_dict = convert_datacontainer_to_dictionary(
+    output_dict = _convert_datacontainer_to_dictionary(
         data_container_dict=job_dict["output"]["generic"]
     )
     if "ricQN" in sphinx_input_parameter_dict["sphinx"]["main"]:
@@ -461,9 +470,9 @@ def convert_sphinx_job_dict(job_dict: dict) -> SphinxJob:
     )
 
 
-def convert_lammps_job_dict(job_dict: dict) -> LammpsJob:
+def _convert_lammps_job_dict(job_dict: dict) -> LammpsJob:
     ureg = UnitRegistry()
-    generic_input_dict = convert_generic_parameters_to_dictionary(
+    generic_input_dict = _convert_generic_parameters_to_dictionary(
         generic_parameter_dict=job_dict["input"]["generic"],
     )
     return LammpsJob(
@@ -541,10 +550,10 @@ def convert_lammps_job_dict(job_dict: dict) -> LammpsJob:
                 species=job_dict["input"]["potential_inp"]["potential"]["Species"],
             ),
             input_files=LammpsInputFiles(
-                control_inp=convert_generic_parameters_to_string(
+                control_inp=_convert_generic_parameters_to_string(
                     generic_parameter_dict=job_dict["input"]["control_inp"]
                 ),
-                potential_inp=convert_generic_parameters_to_string(
+                potential_inp=_convert_generic_parameters_to_string(
                     generic_parameter_dict=job_dict["input"]["potential_inp"]
                 ),
             ),
@@ -609,9 +618,9 @@ def convert_lammps_job_dict(job_dict: dict) -> LammpsJob:
     )
 
 
-def convert_vasp_job_dict(job_dict):
+def _convert_vasp_job_dict(job_dict):
     ureg = UnitRegistry()
-    generic_input_dict = convert_generic_parameters_to_dictionary(
+    generic_input_dict = _convert_generic_parameters_to_dictionary(
         generic_parameter_dict=job_dict["input"]["generic"],
     )
     return VaspJob(
@@ -693,14 +702,14 @@ def convert_vasp_job_dict(job_dict):
                 fix_spin_constraint=generic_input_dict.get("fix_spin_constraint", None),
                 max_iter=generic_input_dict.get("max_iter", None),
             ),
-            incar=convert_generic_parameters_to_string(
+            incar=_convert_generic_parameters_to_string(
                 generic_parameter_dict=job_dict["input"]["incar"]
             ),
-            kpoints=convert_generic_parameters_to_string(
+            kpoints=_convert_generic_parameters_to_string(
                 generic_parameter_dict=job_dict["input"]["kpoints"]
             ),
             potcar=PotCar(
-                xc=convert_generic_parameters_to_dictionary(
+                xc=_convert_generic_parameters_to_dictionary(
                     generic_parameter_dict=job_dict["input"]["potcar"]
                 )["xc"]
             ),
@@ -915,16 +924,7 @@ def convert_vasp_job_dict(job_dict):
     )
 
 
-def convert(job_dict):
-    funct_dict = {
-        "<class 'pyiron_atomistics.lammps.lammps.Lammps'>": convert_lammps_job_dict,
-        "<class 'pyiron_atomistics.sphinx.sphinx.Sphinx'>": convert_sphinx_job_dict,
-        "<class 'pyiron_atomistics.vasp.vasp.Vasp'>": convert_vasp_job_dict,
-    }
-    return funct_dict[job_dict["TYPE"]](job_dict=job_dict)
-
-
-def convert_generic_parameters_to_string(generic_parameter_dict: dict) -> str:
+def _convert_generic_parameters_to_string(generic_parameter_dict: dict) -> str:
     output_str = ""
     for p, v in zip(
         generic_parameter_dict["data_dict"]["Parameter"],
@@ -934,7 +934,7 @@ def convert_generic_parameters_to_string(generic_parameter_dict: dict) -> str:
     return output_str[:-1]
 
 
-def convert_generic_parameters_to_dictionary(generic_parameter_dict: dict) -> dict:
+def _convert_generic_parameters_to_dictionary(generic_parameter_dict: dict) -> dict:
     return {
         p: v
         for p, v in zip(
@@ -976,7 +976,7 @@ def _sort_dictionary_from_datacontainer(input_dict: dict) -> dict:
             else:
                 ind_dict[int(ind)] = key
                 content_dict[key] = recursive_sort(input_value=v)
-        elif k != "DICT_VERSION":
+        else:
             content_dict[k] = recursive_sort(input_value=v)
     if content_lst_flag:
         return [ind_dict[ind] for ind in sorted(list(ind_dict.keys()))]
@@ -991,7 +991,7 @@ def _sort_dictionary_from_datacontainer(input_dict: dict) -> dict:
         raise KeyError(ind_dict, content_dict)
 
 
-def convert_datacontainer_to_dictionary(data_container_dict: dict) -> dict:
+def _convert_datacontainer_to_dictionary(data_container_dict: dict) -> dict:
     return _sort_dictionary_from_datacontainer(
         input_dict=_filter_dict(
             input_dict=data_container_dict,
@@ -999,6 +999,7 @@ def convert_datacontainer_to_dictionary(data_container_dict: dict) -> dict:
                 "NAME",
                 "TYPE",
                 "OBJECT",
+                "DICT_VERSION",
                 "HDF_VERSION",
                 "READ_ONLY",
                 "VERSION",

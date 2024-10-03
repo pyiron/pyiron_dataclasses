@@ -1,0 +1,21 @@
+# This workflow is used to test, if the installation of the pypi package works
+
+name: Pip check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Pip check
+      shell: bash -l {0}
+      run: |
+        pip install versioneer[toml]==0.29
+        pip install . --no-deps --no-build-isolation
+        pip check
