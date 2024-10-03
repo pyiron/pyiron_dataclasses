@@ -3,16 +3,20 @@ import numpy as np
 from typing import List
 
 
-from pyiron_dataclasses.v1.generic import (
-    GenericDict,
-    Interactive,
+from pyiron_dataclasses.v1.atomistic import (
     GenericInput,
     GenericOutput,
-    Executable,
-    Server,
     Structure,
+)
+from pyiron_dataclasses.v1.dft import (
     ElectronicStructure,
     ChargeDensity,
+)
+from pyiron_dataclasses.v1.job import (
+    Executable,
+    GenericDict,
+    Interactive,
+    Server,
 )
 
 

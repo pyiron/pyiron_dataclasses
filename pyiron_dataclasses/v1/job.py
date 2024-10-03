@@ -13,6 +13,20 @@ class Executable:
 
 
 @dataclass
+class GenericDict:
+    restart_file_list: list
+    restart_file_dict: dict
+    exclude_nodes_hdf: list
+    exclude_groups_hdf: list
+
+
+@dataclass
+class Interactive:
+    interactive_flush_frequency: int
+    interactive_write_frequency: int
+
+
+@dataclass
 class Server:
     user: str
     host: str
