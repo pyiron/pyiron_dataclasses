@@ -357,7 +357,7 @@ def convert_sphinx_job_dict(job_dict: dict) -> SphinxJob:
                 use_on_the_fly_cg_optimization=bool(
                     sphinx_input_parameter_dict["use_on_the_fly_cg_optimization"]
                 ),
-                ionic_step=int(sphinx_input_parameter_dict["Istep"]),
+                ionic_step=int(sphinx_input_parameter_dict.get("Istep", 0)),
             ),
             structure=Structure(
                 dimension=job_dict["input"]["structure"]["dimension"],
