@@ -85,9 +85,7 @@ def _convert_sphinx_job_dict(job_dict: dict) -> SphinxJob:
         sphinx_main = SphinxMain(
             ric_qn=SphinxRicQN(
                 max_steps=int(
-                    sphinx_input_parameter_dict["sphinx"]["main"]["ricQN"][
-                        "maxSteps"
-                    ]
+                    sphinx_input_parameter_dict["sphinx"]["main"]["ricQN"]["maxSteps"]
                 ),
                 max_step_length=float(
                     sphinx_input_parameter_dict["sphinx"]["main"]["ricQN"][
@@ -97,53 +95,39 @@ def _convert_sphinx_job_dict(job_dict: dict) -> SphinxJob:
                 born_oppenheimer=BornOppenheimer(
                     scf_diag=ScfDiag(
                         rho_mixing=float(
-                            sphinx_input_parameter_dict["sphinx"]["main"][
-                                "ricQN"
-                            ]["bornOppenheimer"]["scfDiag"]["rhoMixing"]
+                            sphinx_input_parameter_dict["sphinx"]["main"]["ricQN"][
+                                "bornOppenheimer"
+                            ]["scfDiag"]["rhoMixing"]
                         ),
                         spin_mixing=float(
-                            sphinx_input_parameter_dict["sphinx"]["main"][
-                                "ricQN"
-                            ]["bornOppenheimer"]["scfDiag"]["spinMixing"]
+                            sphinx_input_parameter_dict["sphinx"]["main"]["ricQN"][
+                                "bornOppenheimer"
+                            ]["scfDiag"]["spinMixing"]
                         ),
-                        delta_energy=sphinx_input_parameter_dict["sphinx"][
-                            "main"
-                        ]["ricQN"]["bornOppenheimer"]["scfDiag"]["dEnergy"],
-                        max_steps=sphinx_input_parameter_dict["sphinx"][
-                            "main"
-                        ]["ricQN"]["bornOppenheimer"]["scfDiag"][
-                            "maxSteps"
-                        ],
+                        delta_energy=sphinx_input_parameter_dict["sphinx"]["main"][
+                            "ricQN"
+                        ]["bornOppenheimer"]["scfDiag"]["dEnergy"],
+                        max_steps=sphinx_input_parameter_dict["sphinx"]["main"][
+                            "ricQN"
+                        ]["bornOppenheimer"]["scfDiag"]["maxSteps"],
                         preconditioner=SphinxPreConditioner(
-                            type=sphinx_input_parameter_dict["sphinx"][
-                                "main"
-                            ]["ricQN"]["bornOppenheimer"]["scfDiag"][
-                                "preconditioner"
-                            ][
-                                "type"
-                            ],
-                            scaling=sphinx_input_parameter_dict["sphinx"][
-                                "main"
-                            ]["ricQN"]["bornOppenheimer"]["scfDiag"][
-                                "preconditioner"
-                            ][
+                            type=sphinx_input_parameter_dict["sphinx"]["main"]["ricQN"][
+                                "bornOppenheimer"
+                            ]["scfDiag"]["preconditioner"]["type"],
+                            scaling=sphinx_input_parameter_dict["sphinx"]["main"][
+                                "ricQN"
+                            ]["bornOppenheimer"]["scfDiag"]["preconditioner"][
                                 "scaling"
                             ],
-                            spin_scaling=sphinx_input_parameter_dict[
-                                "sphinx"
-                            ]["main"]["ricQN"]["bornOppenheimer"][
-                                "scfDiag"
-                            ][
-                                "preconditioner"
-                            ][
+                            spin_scaling=sphinx_input_parameter_dict["sphinx"]["main"][
+                                "ricQN"
+                            ]["bornOppenheimer"]["scfDiag"]["preconditioner"][
                                 "spinScaling"
                             ],
                         ),
-                        block_ccg=sphinx_input_parameter_dict["sphinx"][
-                            "main"
-                        ]["ricQN"]["bornOppenheimer"]["scfDiag"][
-                            "blockCCG"
-                        ],
+                        block_ccg=sphinx_input_parameter_dict["sphinx"]["main"][
+                            "ricQN"
+                        ]["bornOppenheimer"]["scfDiag"]["blockCCG"],
                     ),
                 ),
             ),
@@ -153,32 +137,46 @@ def _convert_sphinx_job_dict(job_dict: dict) -> SphinxJob:
     else:
         sphinx_main = SphinxMain(
             ric_qn=None,
-            eval_forces=SphinxEvalForces(file=sphinx_input_parameter_dict["sphinx"]["main"]["evalForces"]["file"]),
+            eval_forces=SphinxEvalForces(
+                file=sphinx_input_parameter_dict["sphinx"]["main"]["evalForces"]["file"]
+            ),
             scf_diag=ScfDiag(
-                rho_mixing=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0]["rhoMixing"],
-                spin_mixing=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0]["spinMixing"],
-                delta_energy=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0]["dEnergy"],
-                max_steps=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0]["maxSteps"],
+                rho_mixing=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0][
+                    "rhoMixing"
+                ],
+                spin_mixing=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0][
+                    "spinMixing"
+                ],
+                delta_energy=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][
+                    0
+                ]["dEnergy"],
+                max_steps=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0][
+                    "maxSteps"
+                ],
                 preconditioner=SphinxPreConditioner(
-                    type=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0]["preconditioner"]["type"],
-                    scaling=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0]["preconditioner"]["scaling"],
-                    spin_scaling=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0]["preconditioner"]["spinScaling"],
+                    type=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0][
+                        "preconditioner"
+                    ]["type"],
+                    scaling=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0][
+                        "preconditioner"
+                    ]["scaling"],
+                    spin_scaling=sphinx_input_parameter_dict["sphinx"]["main"][
+                        "scfDiag"
+                    ][0]["preconditioner"]["spinScaling"],
                 ),
-                block_ccg=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0]["blockCCG"],
+                block_ccg=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"][0][
+                    "blockCCG"
+                ],
             ),
         )
     return SphinxJob(
         executable=Executable(
             version=job_dict["executable"]["version"],
             name=job_dict["executable"]["name"],
-            operation_system_nt=job_dict["executable"][
-                "operation_system_nt"
-            ],
+            operation_system_nt=job_dict["executable"]["operation_system_nt"],
             executable=job_dict["executable"]["executable"],
             mpi=job_dict["executable"]["mpi"],
-            accepted_return_codes=job_dict["executable"][
-                "accepted_return_codes"
-            ],
+            accepted_return_codes=job_dict["executable"]["accepted_return_codes"],
         ),
         server=Server(
             user=job_dict["server"]["user"],
@@ -561,14 +559,10 @@ def _convert_lammps_job_dict(job_dict: dict) -> LammpsJob:
         executable=Executable(
             version=job_dict["executable"]["version"],
             name=job_dict["executable"]["name"],
-            operation_system_nt=job_dict["executable"][
-                "operation_system_nt"
-            ],
+            operation_system_nt=job_dict["executable"]["operation_system_nt"],
             executable=job_dict["executable"]["executable"],
             mpi=job_dict["executable"]["mpi"],
-            accepted_return_codes=job_dict["executable"][
-                "accepted_return_codes"
-            ],
+            accepted_return_codes=job_dict["executable"]["accepted_return_codes"],
         ),
         server=Server(
             user=job_dict["server"]["user"],
