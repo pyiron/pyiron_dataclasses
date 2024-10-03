@@ -31,11 +31,11 @@ class TestPyironAtomisticsLive(unittest.TestCase):
         self.project = Project("test")
 
     def tearDown(self):
-        Project("test").remove()
+        Project("test").remove(enable=True)
 
-    def test_sphinx(self):
+    def test_sphinx_calc_minimize(self):
         ureg = UnitRegistry()
-        job = self.project.create.job.Sphinx("sx")
+        job = self.project.create.job.Sphinx("sx_mini")
         job.structure = self.project.create.structure.ase.bulk("Al", cubic=True)
         job.calc_minimize()
         job.run()
@@ -48,9 +48,53 @@ class TestPyironAtomisticsLive(unittest.TestCase):
         job_sphinx = convert_sphinx_job_dict(job_dict[job.job_name])
         self.assertEqual(job_sphinx.calculation_output.generic.energy_tot[-1], -228.78315944 * ureg.eV)
 
-    def test_lammps(self):
+    def test_sphinx_calc_static(self):
         ureg = UnitRegistry()
-        job = self.project.create.job.Lammps("lmp")
+        job = self.project.create.job.Sphinx("sx_static")
+        job.structure = self.project.create.structure.ase.bulk("Al", cubic=True)
+        job.run()
+        job_dict = read_dict_from_hdf(
+            file_name=job.project_hdf5.file_name,
+            h5_path="/",
+            recursive=True,
+            slash='ignore',
+        )
+        job_sphinx = convert_sphinx_job_dict(job_dict[job.job_name])
+        self.assertEqual(job_sphinx.calculation_output.generic.energy_tot[-1], -228.78315944 * ureg.eV)
+
+    def test_lammps_calc_static(self):
+        ureg = UnitRegistry()
+        job = self.project.create.job.Lammps("lmp_static")
+        job.structure = self.project.create.structure.ase.bulk("Al", cubic=True)
+        job.potential = '2002--Mishin-Y--Ni-Al--LAMMPS--ipr1'
+        job.run()
+        job_dict = read_dict_from_hdf(
+            file_name=job.project_hdf5.file_name,
+            h5_path="/",
+            recursive=True,
+            slash='ignore',
+        )
+        job_lammps = convert_lammps_job_dict(job_dict[job.job_name])
+        self.assertEqual(job_lammps.calculation_output.generic.energy_tot[-1], -9428.45286562 * ureg.eV)
+
+    def test_lammps_calc_md(self):
+        ureg = UnitRegistry()
+        job = self.project.create.job.Lammps("lmp_md")
+        job.structure = self.project.create.structure.ase.bulk("Al", cubic=True)
+        job.potential = '2002--Mishin-Y--Ni-Al--LAMMPS--ipr1'
+        job.run()
+        job_dict = read_dict_from_hdf(
+            file_name=job.project_hdf5.file_name,
+            h5_path="/",
+            recursive=True,
+            slash='ignore',
+        )
+        job_lammps = convert_lammps_job_dict(job_dict[job.job_name])
+        self.assertEqual(job_lammps.calculation_output.generic.energy_tot[-1], -9428.45286562 * ureg.eV)
+
+    def test_lammps_calc_minimize(self):
+        ureg = UnitRegistry()
+        job = self.project.create.job.Lammps("lmp_mini")
         job.structure = self.project.create.structure.ase.bulk("Al", cubic=True)
         job.potential = '2002--Mishin-Y--Ni-Al--LAMMPS--ipr1'
         job.run()

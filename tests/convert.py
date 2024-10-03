@@ -471,7 +471,7 @@ def convert_lammps_job_dict(job_dict: dict) -> LammpsJob:
             generic=GenericInput(
                 calc_mode=generic_input_dict["calc_mode"],
                 structure=generic_input_dict["structure"],
-                temperature=generic_input_dict["temperature"],
+                temperature=generic_input_dict.get("temperature", None),
                 n_ionic_steps=generic_input_dict["n_ionic_steps"],
                 n_print=generic_input_dict["n_print"],
                 temperature_damping_timescale=generic_input_dict[
