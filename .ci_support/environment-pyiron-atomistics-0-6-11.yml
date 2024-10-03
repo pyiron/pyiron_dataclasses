@@ -1,9 +1,0 @@
-channels:
-- conda-forge
-dependencies:
-- jupyter
-- papermill
-- pyiron-data =0.0.30
-- pyiron_atomistics =0.6.11
-- lammps =2024.02.07=*_openmpi_*
-- sphinxdft =3.1
