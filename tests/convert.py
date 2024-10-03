@@ -73,7 +73,7 @@ def convert_sphinx_job_dict(job_dict: dict) -> SphinxJob:
         data_container_dict=job_dict["output"]["generic"]
     )
     if "ricQN" in sphinx_input_parameter_dict["sphinx"]["main"]:
-        shinx_main = SphinxMain(
+        sphinx_main = SphinxMain(
             ric_qn=SphinxRicQN(
                 max_steps=int(
                     sphinx_input_parameter_dict["sphinx"]["main"]["ricQN"][
@@ -138,9 +138,12 @@ def convert_sphinx_job_dict(job_dict: dict) -> SphinxJob:
                     ),
                 ),
             ),
+            eval_forces=None,
+            scf_diag=None,
         )
     else:
         sphinx_main = SphinxMain(
+            ric_qn=None,
             eval_forces=SphinxEvalForces(file=sphinx_input_parameter_dict["sphinx"]["main"]["evalForces"]["file"]),
             scf_diag=ScfDiag(
                 rho_mixing=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"]["rhoMixing"],
@@ -326,7 +329,7 @@ def convert_sphinx_job_dict(job_dict: dict) -> SphinxJob:
                             ]
                         ),
                     ),
-                    main=shinx_main,
+                    main=sphinx_main,
                 ),
                 encut=float(sphinx_input_parameter_dict["EnCut"]),
                 kpointcoords=sphinx_input_parameter_dict["KpointCoords"],

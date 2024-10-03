@@ -130,9 +130,9 @@ class SphinxEvalForces:
 
 @dataclass
 class SphinxMain:
-    ric_qn: Optional[SphinxRicQN] = None
-    eval_forces: Optional[SphinxEvalForces] = None
-    scf_diag: Optional[ScfDiag] = None
+    ric_qn: Optional[SphinxRicQN]
+    eval_forces: Optional[SphinxEvalForces]
+    scf_diag: Optional[ScfDiag]
 
 
 @dataclass
