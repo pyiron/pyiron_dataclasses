@@ -472,15 +472,15 @@ def convert_lammps_job_dict(job_dict: dict) -> LammpsJob:
                 calc_mode=generic_input_dict["calc_mode"],
                 structure=generic_input_dict["structure"],
                 temperature=generic_input_dict.get("temperature", None),
-                n_ionic_steps=generic_input_dict["n_ionic_steps"],
-                n_print=generic_input_dict["n_print"],
-                temperature_damping_timescale=generic_input_dict[
-                    "temperature_damping_timescale"
-                ],
-                pressure_damping_timescale=generic_input_dict[
-                    "pressure_damping_timescale"
-                ],
-                time_step=generic_input_dict["time_step"],
+                n_ionic_steps=generic_input_dict.get("n_ionic_steps", None),
+                n_print=generic_input_dict.get("n_print", None),
+                temperature_damping_timescale=generic_input_dict.get(
+                    "temperature_damping_timescale", None
+                ),
+                pressure_damping_timescale=generic_input_dict.get(
+                    "pressure_damping_timescale", None
+                ),
+                time_step=generic_input_dict.get("time_step", None),
                 fix_symmetry=generic_input_dict.get("fix_symmetry", None),
                 k_mesh_spacing=generic_input_dict.get("k_mesh_spacing", None),
                 k_mesh_center_shift=generic_input_dict.get("k_mesh_center_shift", None),
@@ -528,14 +528,14 @@ def convert_lammps_job_dict(job_dict: dict) -> LammpsJob:
             ),
         ),
         executable=Executable(
-            version=job_dict["executable"]["executable"]["version"],
-            name=job_dict["executable"]["executable"]["name"],
-            operation_system_nt=job_dict["executable"]["executable"][
+            version=job_dict["executable"]["version"],
+            name=job_dict["executable"]["name"],
+            operation_system_nt=job_dict["executable"][
                 "operation_system_nt"
             ],
-            executable=job_dict["executable"]["executable"]["executable"],
-            mpi=job_dict["executable"]["executable"]["mpi"],
-            accepted_return_codes=job_dict["executable"]["executable"][
+            executable=job_dict["executable"]["executable"],
+            mpi=job_dict["executable"]["mpi"],
+            accepted_return_codes=job_dict["executable"][
                 "accepted_return_codes"
             ],
         ),
@@ -547,7 +547,7 @@ def convert_lammps_job_dict(job_dict: dict) -> LammpsJob:
             qid=job_dict["server"]["qid"],
             cores=job_dict["server"]["cores"],
             threads=job_dict["server"]["threads"],
-            new_hdf=job_dict["server"]["new_h5"],
+            new_hdf=job_dict["server"]["new_hdf"],
             run_time=job_dict["server"]["run_time"],
             memory_limit=job_dict["server"]["memory_limit"],
             accept_crash=job_dict["server"]["accept_crash"],

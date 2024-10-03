@@ -75,13 +75,13 @@ class TestPyironAtomisticsLive(unittest.TestCase):
             slash='ignore',
         )
         job_lammps = convert_lammps_job_dict(job_dict[job.job_name])
-        self.assertEqual(job_lammps.calculation_output.generic.energy_tot[-1], -9428.45286562 * ureg.eV)
+        self.assertEqual(job_lammps.calculation_output.generic.energy_tot[-1], -13.4486826111902 * ureg.eV)
 
     def test_lammps_calc_md(self):
-        ureg = UnitRegistry()
         job = self.project.create.job.Lammps("lmp_md")
         job.structure = self.project.create.structure.ase.bulk("Al", cubic=True)
         job.potential = '2002--Mishin-Y--Ni-Al--LAMMPS--ipr1'
+        job.calc_md(temperature=200.0, n_ionic_steps=1000, n_print=100)
         job.run()
         job_dict = read_dict_from_hdf(
             file_name=job.project_hdf5.file_name,
@@ -90,7 +90,7 @@ class TestPyironAtomisticsLive(unittest.TestCase):
             slash='ignore',
         )
         job_lammps = convert_lammps_job_dict(job_dict[job.job_name])
-        self.assertEqual(job_lammps.calculation_output.generic.energy_tot[-1], -9428.45286562 * ureg.eV)
+        self.assertEqual(len(job_lammps.calculation_output.generic.energy_tot), 11)
 
     def test_lammps_calc_minimize(self):
         ureg = UnitRegistry()
@@ -105,4 +105,4 @@ class TestPyironAtomisticsLive(unittest.TestCase):
             slash='ignore',
         )
         job_lammps = convert_lammps_job_dict(job_dict[job.job_name])
-        self.assertEqual(job_lammps.calculation_output.generic.energy_tot[-1], -9428.45286562 * ureg.eV)
+        self.assertEqual(job_lammps.calculation_output.generic.energy_tot[-1], -13.4486826111902 * ureg.eV)
