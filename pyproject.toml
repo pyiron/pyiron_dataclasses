@@ -1,0 +1,44 @@
+[build-system]
+requires = []
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyiron_dataclasses"
+description = "Core components of the pyiron integrated development environment (IDE) for computational materials science"
+authors = [
+    { name = "Max-Planck-Institut für Eisenforschung GmbH - Computational Materials Design (CM) Department", email = "pyiron@mpie.de" },
+]
+readme = "README.md"
+license = { file = "LICENSE" }
+keywords = ["pyiron"]
+requires-python = ">=3.9, <3.13"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Topic :: Scientific/Engineering :: Physics",
+    "License :: OSI Approved :: BSD License",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = []
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/pyiron/pyiron_dataclasses"
+Documentation = "https://github.com/pyiron/pyiron_dataclasses"
+Repository = "https://github.com/pyiron/pyiron_dataclasses"
+
+[tool.setuptools.packages.find]
+include = ["pyiron_dataclasses*"]
+
+[tool.setuptools.dynamic]
+version = {attr = "pyiron_dataclasses.__version__"}
+
+[tool.versioneer]
+VCS = "git"
+style = "pep440-pre"
+versionfile_source = "pyiron_dataclasses/_version.py"
+parentdir_prefix = "pyiron_dataclasses"
+tag_prefix = "pyiron_dataclasses-"
