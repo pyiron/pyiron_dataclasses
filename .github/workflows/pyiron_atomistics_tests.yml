@@ -1,4 +1,4 @@
-name: Integrationtests
+name: Tests for pyiron_atomistics
 
 on:
   push:
@@ -19,11 +19,11 @@ jobs:
         python-version: "3.12"
         miniforge-version: latest
         condarc-file: .condarc
-        environment-file: .ci_support/environment-notebooks.yml
+        environment-file: .ci_support/environment-atomistics.yml
     - name: Test
       shell: bash -l {0}
       timeout-minutes: 5
       run: |
-        pip install .
-        papermill notebooks/lammps.ipynb lammps_out.ipynb -k python3
-        papermill notebooks/sphinxdft.ipynb sphinxdft_out.ipynb -k python3
+        pip install versioneer[toml]==0.29
+        pip install . --no-deps --no-build-isolation
+        python -m unittest discover tests

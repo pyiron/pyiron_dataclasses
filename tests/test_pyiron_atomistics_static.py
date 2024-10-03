@@ -12,7 +12,7 @@ from convert import (
 )
 
 
-class TestConvert(TestCase):
+class TestPyironAtomisticsStatic(TestCase):
     def test_sphinx(self):
         ureg = UnitRegistry()
         job_dict = read_dict_from_hdf(
