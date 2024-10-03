@@ -38,6 +38,7 @@ from pyiron_dataclasses.v1.sphinx import (
     SphinxOutput,
     SphinxKpoint,
     SphinxElement,
+    SphinxEvalForces,
     SphinxStructure,
     SphinxRicQN,
     SphinxInternalInput,
@@ -71,6 +72,89 @@ def convert_sphinx_job_dict(job_dict: dict) -> SphinxJob:
     output_dict = convert_datacontainer_to_dictionary(
         data_container_dict=job_dict["output"]["generic"]
     )
+    if "ricQN" in sphinx_input_parameter_dict["sphinx"]["main"]:
+        shinx_main = SphinxMain(
+            ric_qn=SphinxRicQN(
+                max_steps=int(
+                    sphinx_input_parameter_dict["sphinx"]["main"]["ricQN"][
+                        "maxSteps"
+                    ]
+                ),
+                max_step_length=float(
+                    sphinx_input_parameter_dict["sphinx"]["main"]["ricQN"][
+                        "maxStepLength"
+                    ]
+                ),
+                born_oppenheimer=BornOppenheimer(
+                    scf_diag=ScfDiag(
+                        rho_mixing=float(
+                            sphinx_input_parameter_dict["sphinx"]["main"][
+                                "ricQN"
+                            ]["bornOppenheimer"]["scfDiag"]["rhoMixing"]
+                        ),
+                        spin_mixing=float(
+                            sphinx_input_parameter_dict["sphinx"]["main"][
+                                "ricQN"
+                            ]["bornOppenheimer"]["scfDiag"]["spinMixing"]
+                        ),
+                        delta_energy=sphinx_input_parameter_dict["sphinx"][
+                            "main"
+                        ]["ricQN"]["bornOppenheimer"]["scfDiag"]["dEnergy"],
+                        max_steps=sphinx_input_parameter_dict["sphinx"][
+                            "main"
+                        ]["ricQN"]["bornOppenheimer"]["scfDiag"][
+                            "maxSteps"
+                        ],
+                        preconditioner=SphinxPreConditioner(
+                            type=sphinx_input_parameter_dict["sphinx"][
+                                "main"
+                            ]["ricQN"]["bornOppenheimer"]["scfDiag"][
+                                "preconditioner"
+                            ][
+                                "type"
+                            ],
+                            scaling=sphinx_input_parameter_dict["sphinx"][
+                                "main"
+                            ]["ricQN"]["bornOppenheimer"]["scfDiag"][
+                                "preconditioner"
+                            ][
+                                "scaling"
+                            ],
+                            spin_scaling=sphinx_input_parameter_dict[
+                                "sphinx"
+                            ]["main"]["ricQN"]["bornOppenheimer"][
+                                "scfDiag"
+                            ][
+                                "preconditioner"
+                            ][
+                                "spinScaling"
+                            ],
+                        ),
+                        block_ccg=sphinx_input_parameter_dict["sphinx"][
+                            "main"
+                        ]["ricQN"]["bornOppenheimer"]["scfDiag"][
+                            "blockCCG"
+                        ],
+                    ),
+                ),
+            ),
+        )
+    else:
+        sphinx_main = SphinxMain(
+            eval_forces=SphinxEvalForces(file=sphinx_input_parameter_dict["sphinx"]["main"]["evalForces"]["file"]),
+            scf_diag=ScfDiag(
+                rho_mixing=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"]["rhoMixing"],
+                spin_mixing=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"]["spinMixing"],
+                delta_energy=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"]["dEnergy"],
+                max_steps=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"]["maxSteps"],
+                preconditioner=SphinxPreConditioner(
+                    type=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"]["preconditioner"]["type"],
+                    scaling=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"]["preconditioner"]["scaling"],
+                    spin_scaling=sphinx_input_parameter_dict["sphinx"]["main"]["scfDiag"]["preconditioner"]["spinScaling"],
+                ),
+                block_ccg={},
+            ),
+        )
     return SphinxJob(
         executable=Executable(
             version=job_dict["executable"]["version"],
@@ -242,72 +326,7 @@ def convert_sphinx_job_dict(job_dict: dict) -> SphinxJob:
                             ]
                         ),
                     ),
-                    main=SphinxMain(
-                        ric_qn=SphinxRicQN(
-                            max_steps=int(
-                                sphinx_input_parameter_dict["sphinx"]["main"]["ricQN"][
-                                    "maxSteps"
-                                ]
-                            ),
-                            max_step_length=float(
-                                sphinx_input_parameter_dict["sphinx"]["main"]["ricQN"][
-                                    "maxStepLength"
-                                ]
-                            ),
-                            born_oppenheimer=BornOppenheimer(
-                                scf_diag=ScfDiag(
-                                    rho_mixing=float(
-                                        sphinx_input_parameter_dict["sphinx"]["main"][
-                                            "ricQN"
-                                        ]["bornOppenheimer"]["scfDiag"]["rhoMixing"]
-                                    ),
-                                    spin_mixing=float(
-                                        sphinx_input_parameter_dict["sphinx"]["main"][
-                                            "ricQN"
-                                        ]["bornOppenheimer"]["scfDiag"]["spinMixing"]
-                                    ),
-                                    delta_energy=sphinx_input_parameter_dict["sphinx"][
-                                        "main"
-                                    ]["ricQN"]["bornOppenheimer"]["scfDiag"]["dEnergy"],
-                                    max_steps=sphinx_input_parameter_dict["sphinx"][
-                                        "main"
-                                    ]["ricQN"]["bornOppenheimer"]["scfDiag"][
-                                        "maxSteps"
-                                    ],
-                                    preconditioner=SphinxPreConditioner(
-                                        type=sphinx_input_parameter_dict["sphinx"][
-                                            "main"
-                                        ]["ricQN"]["bornOppenheimer"]["scfDiag"][
-                                            "preconditioner"
-                                        ][
-                                            "type"
-                                        ],
-                                        scaling=sphinx_input_parameter_dict["sphinx"][
-                                            "main"
-                                        ]["ricQN"]["bornOppenheimer"]["scfDiag"][
-                                            "preconditioner"
-                                        ][
-                                            "scaling"
-                                        ],
-                                        spin_scaling=sphinx_input_parameter_dict[
-                                            "sphinx"
-                                        ]["main"]["ricQN"]["bornOppenheimer"][
-                                            "scfDiag"
-                                        ][
-                                            "preconditioner"
-                                        ][
-                                            "spinScaling"
-                                        ],
-                                    ),
-                                    block_ccg=sphinx_input_parameter_dict["sphinx"][
-                                        "main"
-                                    ]["ricQN"]["bornOppenheimer"]["scfDiag"][
-                                        "blockCCG"
-                                    ],
-                                ),
-                            ),
-                        ),
-                    ),
+                    main=shinx_main,
                 ),
                 encut=float(sphinx_input_parameter_dict["EnCut"]),
                 kpointcoords=sphinx_input_parameter_dict["KpointCoords"],
