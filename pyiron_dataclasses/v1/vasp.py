@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-import numpy as np
 
+import numpy as np
 
 from pyiron_dataclasses.v1.atomistic import (
     GenericInput,
@@ -8,8 +8,8 @@ from pyiron_dataclasses.v1.atomistic import (
     Structure,
 )
 from pyiron_dataclasses.v1.dft import (
-    ElectronicStructure,
     ChargeDensity,
+    ElectronicStructure,
 )
 from pyiron_dataclasses.v1.job import (
     Executable,
