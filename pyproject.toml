@@ -30,6 +30,12 @@ Homepage = "https://github.com/pyiron/pyiron_dataclasses"
 Documentation = "https://github.com/pyiron/pyiron_dataclasses"
 Repository = "https://github.com/pyiron/pyiron_dataclasses"
 
+[project.optional-dependencies]
+convert = [
+    "h5io_browser==0.1.2",
+    "pint==0.24.3",
+]
+
 [tool.setuptools.packages.find]
 include = ["pyiron_dataclasses*"]
 
