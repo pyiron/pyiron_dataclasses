@@ -62,7 +62,7 @@ class Cell:
 @dataclass
 class Structure:
     dimension: int
-    indices: np.array
+    indices: np.ndarray
     info: dict
     positions: np.ndarray  # N_atoms * 3  [Angstrom]
     species: List[str]
