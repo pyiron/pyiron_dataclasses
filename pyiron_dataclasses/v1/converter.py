@@ -1,3 +1,5 @@
+from typing import Callable, Union
+
 from pint import UnitRegistry
 
 from pyiron_dataclasses.v1.atomistic import (
@@ -61,7 +63,7 @@ from pyiron_dataclasses.v1.vasp import (
 )
 
 
-def get_dataclass(job_dict):
+def get_dataclass(job_dict: dict) -> Callable:
     funct_dict = {
         "<class 'pyiron_atomistics.lammps.lammps.Lammps'>": _convert_lammps_job_dict,
         "<class 'pyiron_atomistics.sphinx.sphinx.Sphinx'>": _convert_sphinx_job_dict,
@@ -952,8 +954,8 @@ def _filter_dict(input_dict: dict, remove_keys_lst: list) -> dict:
     }
 
 
-def _sort_dictionary_from_datacontainer(input_dict: dict) -> dict:
-    def recursive_sort(input_value: dict) -> dict:
+def _sort_dictionary_from_datacontainer(input_dict: dict) -> Union[dict, list]:
+    def recursive_sort(input_value: dict) -> Union[dict, list]:
         if isinstance(input_value, dict):
             return _sort_dictionary_from_datacontainer(input_dict=input_value)
         else:
@@ -986,7 +988,7 @@ def _sort_dictionary_from_datacontainer(input_dict: dict) -> dict:
 
 
 def _convert_datacontainer_to_dictionary(data_container_dict: dict) -> dict:
-    return _sort_dictionary_from_datacontainer(
+    output_dict = _sort_dictionary_from_datacontainer(
         input_dict=_filter_dict(
             input_dict=data_container_dict,
             remove_keys_lst=[
@@ -1000,3 +1002,7 @@ def _convert_datacontainer_to_dictionary(data_container_dict: dict) -> dict:
             ],
         )
     )
+    if isinstance(output_dict, dict):
+        return output_dict
+    else:
+        raise TypeError("datacontainer was not converted to a dictionary.")
