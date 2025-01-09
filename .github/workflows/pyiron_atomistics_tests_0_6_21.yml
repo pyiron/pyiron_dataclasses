@@ -1,4 +1,4 @@
-name: Tests for pyiron_atomistics 0.6.12
+name: Tests for pyiron_atomistics 0.6.21
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
         python-version: "3.12"
         miniforge-version: latest
         condarc-file: .condarc
-        environment-file: .ci_support/environment-pyiron-atomistics-0-6-12.yml
+        environment-file: .ci_support/environment-pyiron-atomistics-0-6-21.yml
     - name: Test
       shell: bash -l {0}
       timeout-minutes: 5
