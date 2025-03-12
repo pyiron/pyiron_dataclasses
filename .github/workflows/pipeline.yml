@@ -157,8 +157,100 @@ jobs:
         pip install . --no-deps --no-build-isolation
         python -m unittest discover tests
 
+  pyiron_atomistics_tests_0_6_24:
+    needs: [black]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Conda config
+      shell: bash -l {0}
+      run: echo -e "channels:\n  - conda-forge\n" > .condarc
+    - name: Setup Mambaforge
+      uses: conda-incubator/setup-miniconda@v3
+      with:
+        python-version: "3.12"
+        miniforge-version: latest
+        condarc-file: .condarc
+        environment-file: .ci_support/environment-pyiron-atomistics-0-6-24.yml
+    - name: Test
+      shell: bash -l {0}
+      timeout-minutes: 5
+      run: |
+        pip install versioneer[toml]==0.29
+        pip install . --no-deps --no-build-isolation
+        python -m unittest discover tests
+
+  pyiron_atomistics_tests_0_6_25:
+    needs: [black]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Conda config
+      shell: bash -l {0}
+      run: echo -e "channels:\n  - conda-forge\n" > .condarc
+    - name: Setup Mambaforge
+      uses: conda-incubator/setup-miniconda@v3
+      with:
+        python-version: "3.12"
+        miniforge-version: latest
+        condarc-file: .condarc
+        environment-file: .ci_support/environment-pyiron-atomistics-0-6-25.yml
+    - name: Test
+      shell: bash -l {0}
+      timeout-minutes: 5
+      run: |
+        pip install versioneer[toml]==0.29
+        pip install . --no-deps --no-build-isolation
+        python -m unittest discover tests
+
+  pyiron_atomistics_tests_0_7_0:
+    needs: [black]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Conda config
+      shell: bash -l {0}
+      run: echo -e "channels:\n  - conda-forge\n" > .condarc
+    - name: Setup Mambaforge
+      uses: conda-incubator/setup-miniconda@v3
+      with:
+        python-version: "3.12"
+        miniforge-version: latest
+        condarc-file: .condarc
+        environment-file: .ci_support/environment-pyiron-atomistics-0-7-0.yml
+    - name: Test
+      shell: bash -l {0}
+      timeout-minutes: 5
+      run: |
+        pip install versioneer[toml]==0.29
+        pip install . --no-deps --no-build-isolation
+        python -m unittest discover tests
+
+  pyiron_atomistics_tests_0_7_1:
+    needs: [black]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Conda config
+      shell: bash -l {0}
+      run: echo -e "channels:\n  - conda-forge\n" > .condarc
+    - name: Setup Mambaforge
+      uses: conda-incubator/setup-miniconda@v3
+      with:
+        python-version: "3.12"
+        miniforge-version: latest
+        condarc-file: .condarc
+        environment-file: .ci_support/environment-pyiron-atomistics-0-7-1.yml
+    - name: Test
+      shell: bash -l {0}
+      timeout-minutes: 5
+      run: |
+        pip install versioneer[toml]==0.29
+        pip install . --no-deps --no-build-isolation
+        python -m unittest discover tests
+
   autobot:
-    needs: [minimal, pyiron_atomistics_tests_0_6_23, pyiron_atomistics_tests_0_6_22, pyiron_atomistics_tests_0_6_21, pyiron_atomistics_tests_0_6_20]
+    needs: [minimal, pyiron_atomistics_tests_0_7_1, pyiron_atomistics_tests_0_7_0, pyiron_atomistics_tests_0_6_25, pyiron_atomistics_tests_0_6_24, pyiron_atomistics_tests_0_6_23, pyiron_atomistics_tests_0_6_22, pyiron_atomistics_tests_0_6_21, pyiron_atomistics_tests_0_6_20]
     permissions:
       contents: write
       pull-requests: write
