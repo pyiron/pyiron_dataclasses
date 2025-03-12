@@ -27,5 +27,15 @@ job_classes
 ## Supported Versions 
 ### Version 1 - `v1`
 Supported versions of `pyiron_atomistics`:
+
+`pyiron_atomistics` version `0.6.X`:
 * `0.6.20`
 * `0.6.21`
+* `0.6.22`
+* `0.6.23`
+* `0.6.24`
+* `0.6.25`
+
+`pyiron_atomistics` version `0.7.X`:
+* `0.7.0`
+* `0.7.1`
