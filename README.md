@@ -29,13 +29,13 @@ job_classes
 Supported versions of `pyiron_atomistics`:
 
 `pyiron_atomistics` version `0.6.X`:
-* `0.6.20`
-* `0.6.21`
-* `0.6.22`
-* `0.6.23`
-* `0.6.24`
-* `0.6.25`
+* `0.6.20` - Jan 8 2025
+* `0.6.21` - Jan 9 2025
+* `0.6.22` - Jan 13 2025
+* `0.6.23` - Feb 6 2025
+* `0.6.24` - Feb 17 2025
+* `0.6.25` - Feb 21 2025
 
 `pyiron_atomistics` version `0.7.X`:
-* `0.7.0`
-* `0.7.1`
+* `0.7.0` - Feb 28 2025
+* `0.7.1` - Mar 5 2025
