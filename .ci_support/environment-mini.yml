@@ -1,6 +1,7 @@
 channels:
 - conda-forge
 dependencies:
-- h5io_browser =0.1.2
-- pint =0.24.3
+- h5io_browser =0.1.9
+- numpy =2.2.4
+- pint =0.24.4
 - setuptools
