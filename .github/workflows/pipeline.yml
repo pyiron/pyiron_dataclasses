@@ -90,6 +90,10 @@ jobs:
           - environment-file: .ci_support/environment-pyiron-atomistics-0-7-11.yml
           - environment-file: .ci_support/environment-pyiron-atomistics-0-7-12.yml
           - environment-file: .ci_support/environment-pyiron-atomistics-0-7-13.yml
+          - environment-file: .ci_support/environment-pyiron-atomistics-0-7-14.yml
+          - environment-file: .ci_support/environment-pyiron-atomistics-0-7-15.yml
+          - environment-file: .ci_support/environment-pyiron-atomistics-0-7-16.yml
+          - environment-file: .ci_support/environment-pyiron-atomistics-0-7-17.yml
     steps:
     - uses: actions/checkout@v4
     - name: Conda config
