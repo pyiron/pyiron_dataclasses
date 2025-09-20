@@ -41,3 +41,7 @@ class TestPyironAtomisticsStatic(TestCase):
                 )
             else:
                 raise ValueError()
+
+    def test_not_supported(self):
+        with self.assertRaises(KeyError):
+            get_dataclass_v1(job_dict={"TYPE": "unknown"})

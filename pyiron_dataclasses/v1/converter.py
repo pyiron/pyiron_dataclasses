@@ -1,4 +1,4 @@
-from typing import Callable
+from typing import Union
 
 from pint import UnitRegistry
 
@@ -73,14 +73,22 @@ from pyiron_dataclasses.v1.shared import (
 )
 
 
-def get_dataclass(job_dict: dict) -> Callable:
-    funct_dict = {
-        "<class 'pyiron_atomistics.lammps.lammps.Lammps'>": _convert_lammps_job_dict,
-        "<class 'pyiron_atomistics.sphinx.sphinx.Sphinx'>": _convert_sphinx_job_dict,
-        "<class 'pyiron_atomistics.vasp.vasp.Vasp'>": _convert_vasp_job_dict,
-        "<class 'pyiron_atomistics.atomistics.master.murnaghan.Murnaghan'>": _convert_murnaghan_job_dict,
-    }
-    return funct_dict[job_dict["TYPE"]](job_dict=job_dict)
+def get_dataclass(job_dict: dict) -> Union[LammpsJob, VaspJob, SphinxJob, MurnaghanJob]:
+    if job_dict["TYPE"] == "<class 'pyiron_atomistics.lammps.lammps.Lammps'>":
+        return _convert_lammps_job_dict(job_dict=job_dict)
+    elif job_dict["TYPE"] == "<class 'pyiron_atomistics.sphinx.sphinx.Sphinx'>":
+        return _convert_sphinx_job_dict(job_dict=job_dict)
+    elif job_dict["TYPE"] == "<class 'pyiron_atomistics.vasp.vasp.Vasp'>":
+        return _convert_vasp_job_dict(job_dict=job_dict)
+    elif (
+        job_dict["TYPE"]
+        == "<class 'pyiron_atomistics.atomistics.master.murnaghan.Murnaghan'>"
+    ):
+        return _convert_murnaghan_job_dict(job_dict=job_dict)
+    else:
+        raise KeyError(
+            "JobType {} is not supported by pyiron_dataclass.".format(job_dict["TYPE"])
+        )
 
 
 def _convert_sphinx_job_dict(job_dict: dict) -> SphinxJob:
@@ -625,7 +633,7 @@ def _convert_lammps_job_dict(job_dict: dict) -> LammpsJob:
     )
 
 
-def _convert_vasp_job_dict(job_dict):
+def _convert_vasp_job_dict(job_dict: dict) -> VaspJob:
     ureg = UnitRegistry()
     generic_input_dict = convert_generic_parameters_to_dictionary(
         generic_parameter_dict=job_dict["input"]["generic"],
@@ -931,7 +939,7 @@ def _convert_vasp_job_dict(job_dict):
     )
 
 
-def _convert_murnaghan_job_dict(job_dict):
+def _convert_murnaghan_job_dict(job_dict: dict) -> MurnaghanJob:
     input_dict = convert_generic_parameters_to_dictionary(
         generic_parameter_dict=job_dict["input"]["parameters"]
     )
