@@ -3,7 +3,7 @@ from typing import List, Optional
 
 import numpy as np
 
-from pyiron_dataclasses.v1.dft import OutputGenericDFT
+from pyiron_dataclasses.v1.jobs.dft import OutputGenericDFT
 
 
 @dataclass

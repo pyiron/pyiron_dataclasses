@@ -2,16 +2,16 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from pyiron_dataclasses.v1.atomistic import (
+from pyiron_dataclasses.v1.jobs.atomistic import (
     GenericInput,
     GenericOutput,
     Structure,
 )
-from pyiron_dataclasses.v1.dft import (
+from pyiron_dataclasses.v1.jobs.dft import (
     ChargeDensity,
     ElectronicStructure,
 )
-from pyiron_dataclasses.v1.job import (
+from pyiron_dataclasses.v1.jobs.generic import (
     Executable,
     GenericDict,
     Interactive,

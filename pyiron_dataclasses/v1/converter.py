@@ -1,39 +1,39 @@
-from typing import Callable, Union
+from typing import Callable
 
 from pint import UnitRegistry
 
-from pyiron_dataclasses.v1.atomistic import (
+from pyiron_dataclasses.v1.jobs.atomistic import (
     Cell,
     GenericInput,
     GenericOutput,
     Structure,
     Units,
 )
-from pyiron_dataclasses.v1.dft import (
+from pyiron_dataclasses.v1.jobs.dft import (
     ChargeDensity,
     DensityOfStates,
     ElectronicStructure,
     OutputGenericDFT,
 )
-from pyiron_dataclasses.v1.job import (
+from pyiron_dataclasses.v1.jobs.generic import (
     Executable,
     GenericDict,
     Interactive,
     Server,
 )
-from pyiron_dataclasses.v1.lammps import (
+from pyiron_dataclasses.v1.jobs.lammps import (
     LammpsInput,
     LammpsInputFiles,
     LammpsJob,
     LammpsOutput,
     LammpsPotential,
 )
-from pyiron_dataclasses.v1.murn import (
+from pyiron_dataclasses.v1.jobs.murn import (
     MurnaghanInput,
     MurnaghanJob,
     MurnaghanOutput,
 )
-from pyiron_dataclasses.v1.sphinx import (
+from pyiron_dataclasses.v1.jobs.sphinx import (
     BornOppenheimer,
     PawPot,
     ScfDiag,
@@ -58,7 +58,12 @@ from pyiron_dataclasses.v1.sphinx import (
     SphinxStructure,
     SphinxWaves,
 )
-from pyiron_dataclasses.v1.vasp import (
+from pyiron_dataclasses.v1.shared import (
+    convert_datacontainer_to_dictionary,
+    convert_generic_parameters_to_dictionary,
+    convert_generic_parameters_to_string,
+)
+from pyiron_dataclasses.v1.jobs.vasp import (
     OutCar,
     PotCar,
     VaspInput,
@@ -80,13 +85,13 @@ def get_dataclass(job_dict: dict) -> Callable:
 
 def _convert_sphinx_job_dict(job_dict: dict) -> SphinxJob:
     ureg = UnitRegistry()
-    sphinx_input_parameter_dict = _convert_datacontainer_to_dictionary(
+    sphinx_input_parameter_dict = convert_datacontainer_to_dictionary(
         data_container_dict=job_dict["input"]["parameters"]
     )
-    generic_input_dict = _convert_generic_parameters_to_dictionary(
+    generic_input_dict = convert_generic_parameters_to_dictionary(
         generic_parameter_dict=job_dict["input"]["generic"],
     )
-    output_dict = _convert_datacontainer_to_dictionary(
+    output_dict = convert_datacontainer_to_dictionary(
         data_container_dict=job_dict["output"]["generic"]
     )
     if "ricQN" in sphinx_input_parameter_dict["sphinx"]["main"]:
@@ -478,7 +483,7 @@ def _convert_sphinx_job_dict(job_dict: dict) -> SphinxJob:
 
 def _convert_lammps_job_dict(job_dict: dict) -> LammpsJob:
     ureg = UnitRegistry()
-    generic_input_dict = _convert_generic_parameters_to_dictionary(
+    generic_input_dict = convert_generic_parameters_to_dictionary(
         generic_parameter_dict=job_dict["input"]["generic"],
     )
     return LammpsJob(
@@ -556,10 +561,10 @@ def _convert_lammps_job_dict(job_dict: dict) -> LammpsJob:
                 species=job_dict["input"]["potential_inp"]["potential"]["Species"],
             ),
             input_files=LammpsInputFiles(
-                control_inp=_convert_generic_parameters_to_string(
+                control_inp=convert_generic_parameters_to_string(
                     generic_parameter_dict=job_dict["input"]["control_inp"]
                 ),
-                potential_inp=_convert_generic_parameters_to_string(
+                potential_inp=convert_generic_parameters_to_string(
                     generic_parameter_dict=job_dict["input"]["potential_inp"]
                 ),
             ),
@@ -622,7 +627,7 @@ def _convert_lammps_job_dict(job_dict: dict) -> LammpsJob:
 
 def _convert_vasp_job_dict(job_dict):
     ureg = UnitRegistry()
-    generic_input_dict = _convert_generic_parameters_to_dictionary(
+    generic_input_dict = convert_generic_parameters_to_dictionary(
         generic_parameter_dict=job_dict["input"]["generic"],
     )
     return VaspJob(
@@ -704,14 +709,14 @@ def _convert_vasp_job_dict(job_dict):
                 fix_spin_constraint=generic_input_dict.get("fix_spin_constraint", None),
                 max_iter=generic_input_dict.get("max_iter", None),
             ),
-            incar=_convert_generic_parameters_to_string(
+            incar=convert_generic_parameters_to_string(
                 generic_parameter_dict=job_dict["input"]["incar"]
             ),
-            kpoints=_convert_generic_parameters_to_string(
+            kpoints=convert_generic_parameters_to_string(
                 generic_parameter_dict=job_dict["input"]["kpoints"]
             ),
             potcar=PotCar(
-                xc=_convert_generic_parameters_to_dictionary(
+                xc=convert_generic_parameters_to_dictionary(
                     generic_parameter_dict=job_dict["input"]["potcar"]
                 )["xc"]
             ),
@@ -927,7 +932,7 @@ def _convert_vasp_job_dict(job_dict):
 
 
 def _convert_murnaghan_job_dict(job_dict):
-    input_dict = _convert_generic_parameters_to_dictionary(
+    input_dict = convert_generic_parameters_to_dictionary(
         generic_parameter_dict=job_dict["input"]["parameters"]
     )
     return MurnaghanJob(
@@ -967,91 +972,3 @@ def _convert_murnaghan_job_dict(job_dict):
             structure=job_dict["output"]["structure"],
         ),
     )
-
-
-def _convert_generic_parameters_to_string(generic_parameter_dict: dict) -> str:
-    output_str = ""
-    for p, v in zip(
-        generic_parameter_dict["data_dict"]["Parameter"],
-        generic_parameter_dict["data_dict"]["Value"],
-    ):
-        output_str += p.replace("___", " ") + " " + str(v) + "\n"
-    return output_str[:-1]
-
-
-def _convert_generic_parameters_to_dictionary(generic_parameter_dict: dict) -> dict:
-    return {
-        p: v
-        for p, v in zip(
-            generic_parameter_dict["data_dict"]["Parameter"],
-            generic_parameter_dict["data_dict"]["Value"],
-        )
-    }
-
-
-def _filter_dict(input_dict: dict, remove_keys_lst: list) -> dict:
-    def recursive_filter(input_value: dict, remove_keys_lst: list) -> dict:
-        if isinstance(input_value, dict):
-            return _filter_dict(input_dict=input_value, remove_keys_lst=remove_keys_lst)
-        else:
-            return input_value
-
-    return {
-        k: recursive_filter(input_value=v, remove_keys_lst=remove_keys_lst)
-        for k, v in input_dict.items()
-        if k not in remove_keys_lst
-    }
-
-
-def _sort_dictionary_from_datacontainer(input_dict: dict) -> Union[dict, list]:
-    def recursive_sort(input_value: dict) -> Union[dict, list]:
-        if isinstance(input_value, dict):
-            return _sort_dictionary_from_datacontainer(input_dict=input_value)
-        else:
-            return input_value
-
-    ind_dict, content_dict = {}, {}
-    content_lst_flag = False
-    for k, v in input_dict.items():
-        if "__index_" in k:
-            key, ind = k.split("__index_")
-            if key == "":
-                content_lst_flag = True
-                ind_dict[int(ind)] = recursive_sort(input_value=v)
-            else:
-                ind_dict[int(ind)] = key
-                content_dict[key] = recursive_sort(input_value=v)
-        else:
-            content_dict[k] = recursive_sort(input_value=v)
-    if content_lst_flag:
-        return [ind_dict[ind] for ind in sorted(list(ind_dict.keys()))]
-    elif len(ind_dict) == len(content_dict):
-        return {
-            ind_dict[ind]: content_dict[ind_dict[ind]]
-            for ind in sorted(list(ind_dict.keys()))
-        }
-    elif len(ind_dict) == 0:
-        return content_dict
-    else:
-        raise KeyError(ind_dict, content_dict)
-
-
-def _convert_datacontainer_to_dictionary(data_container_dict: dict) -> dict:
-    output_dict = _sort_dictionary_from_datacontainer(
-        input_dict=_filter_dict(
-            input_dict=data_container_dict,
-            remove_keys_lst=[
-                "NAME",
-                "TYPE",
-                "OBJECT",
-                "DICT_VERSION",
-                "HDF_VERSION",
-                "READ_ONLY",
-                "VERSION",
-            ],
-        )
-    )
-    if isinstance(output_dict, dict):
-        return output_dict
-    else:
-        raise TypeError("datacontainer was not converted to a dictionary.")
