@@ -1,5 +1,6 @@
 # Dataclasses for pyiron
 [![Pipeline](https://github.com/pyiron/pyiron_dataclasses/actions/workflows/pipeline.yml/badge.svg)](https://github.com/pyiron/pyiron_dataclasses/actions/workflows/pipeline.yml)
+[![codecov](https://codecov.io/gh/pyiron/pyiron_dataclasses/graph/badge.svg?token=83H0OO0AFC)](https://codecov.io/gh/pyiron/pyiron_dataclasses)
 
 The `pyiron_dataclasses` module provides a series of [dataclasses](https://docs.python.org/3/library/dataclasses.html) 
 for the `pyiron` workflow framework. It can load HDF5 files created by `pyiron_atomistics` and read the content stored 
