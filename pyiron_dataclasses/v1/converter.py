@@ -58,11 +58,6 @@ from pyiron_dataclasses.v1.jobs.sphinx import (
     SphinxStructure,
     SphinxWaves,
 )
-from pyiron_dataclasses.v1.shared import (
-    convert_datacontainer_to_dictionary,
-    convert_generic_parameters_to_dictionary,
-    convert_generic_parameters_to_string,
-)
 from pyiron_dataclasses.v1.jobs.vasp import (
     OutCar,
     PotCar,
@@ -70,6 +65,11 @@ from pyiron_dataclasses.v1.jobs.vasp import (
     VaspJob,
     VaspOutput,
     VaspResources,
+)
+from pyiron_dataclasses.v1.shared import (
+    convert_datacontainer_to_dictionary,
+    convert_generic_parameters_to_dictionary,
+    convert_generic_parameters_to_string,
 )
 
 
