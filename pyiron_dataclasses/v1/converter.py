@@ -1,4 +1,4 @@
-from typing import Callable, Union
+from typing import Union
 
 from pint import UnitRegistry
 
@@ -68,7 +68,7 @@ from pyiron_dataclasses.v1.vasp import (
 )
 
 
-def get_dataclass(job_dict: dict) -> Callable:
+def get_dataclass(job_dict: dict) -> Union[LammpsJob, MurnaghanJob, VaspJob, SphinxJob]:
     funct_dict = {
         "<class 'pyiron_atomistics.lammps.lammps.Lammps'>": _convert_lammps_job_dict,
         "<class 'pyiron_atomistics.sphinx.sphinx.Sphinx'>": _convert_sphinx_job_dict,
@@ -620,7 +620,7 @@ def _convert_lammps_job_dict(job_dict: dict) -> LammpsJob:
     )
 
 
-def _convert_vasp_job_dict(job_dict):
+def _convert_vasp_job_dict(job_dict: dict) -> VaspJob:
     ureg = UnitRegistry()
     generic_input_dict = _convert_generic_parameters_to_dictionary(
         generic_parameter_dict=job_dict["input"]["generic"],
@@ -926,7 +926,7 @@ def _convert_vasp_job_dict(job_dict):
     )
 
 
-def _convert_murnaghan_job_dict(job_dict):
+def _convert_murnaghan_job_dict(job_dict) -> MurnaghanJob:
     input_dict = _convert_generic_parameters_to_dictionary(
         generic_parameter_dict=job_dict["input"]["parameters"]
     )
