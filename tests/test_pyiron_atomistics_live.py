@@ -117,3 +117,21 @@ class TestPyironAtomisticsLive(unittest.TestCase):
             job_lammps.calculation_output.generic.energy_tot[-1],
             -13.4486826111902 * ureg.eV,
         )
+
+    def test_murnaghan_lammps(self):
+        job = self.project.create.job.Lammps("lmp")
+        job.structure = self.project.create.structure.bulk("Al", cubic=True)
+        murn = self.project.create.job.Murnaghan("murn")
+        murn.ref_job = job
+        murn.run()
+        job_dict = read_dict_from_hdf(
+            file_name=murn.project_hdf5.file_name,
+            h5_path="/",
+            recursive=True,
+            slash="ignore",
+        )
+        job_murn = get_dataclass(job_dict[murn.job_name])
+        self.assertEqual(
+            job_murn.calculation_output.equilibrium_bulk_modulus,
+            81.0404454580153,
+        )

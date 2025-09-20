@@ -28,6 +28,11 @@ from pyiron_dataclasses.v1.lammps import (
     LammpsOutput,
     LammpsPotential,
 )
+from pyiron_dataclasses.v1.murn import (
+    MurnaghanInput,
+    MurnaghanJob,
+    MurnaghanOutput,
+)
 from pyiron_dataclasses.v1.sphinx import (
     BornOppenheimer,
     PawPot,
@@ -68,6 +73,7 @@ def get_dataclass(job_dict: dict) -> Callable:
         "<class 'pyiron_atomistics.lammps.lammps.Lammps'>": _convert_lammps_job_dict,
         "<class 'pyiron_atomistics.sphinx.sphinx.Sphinx'>": _convert_sphinx_job_dict,
         "<class 'pyiron_atomistics.vasp.vasp.Vasp'>": _convert_vasp_job_dict,
+        "<class 'pyiron_atomistics.atomistics.master.murnaghan.Murnaghan'>": _convert_murnaghan_job_dict,
     }
     return funct_dict[job_dict["TYPE"]](job_dict=job_dict)
 
@@ -916,6 +922,49 @@ def _convert_vasp_job_dict(job_dict):
                     mass=job_dict["output"]["structure"]["units"]["mass"],
                 ),
             ),
+        ),
+    )
+
+
+def _convert_murnaghan_job_dict(job_dict):
+    input_dict = _convert_generic_parameters_to_dictionary(
+        generic_parameter_dict=job_dict["input"]["parameters"]
+    )
+    return MurnaghanJob(
+        job_id=job_dict["job_id"],
+        server=Server(
+            user=job_dict["server"]["user"],
+            host=job_dict["server"]["host"],
+            run_mode=job_dict["server"]["run_mode"],
+            queue=job_dict["server"]["queue"],
+            qid=job_dict["server"]["qid"],
+            cores=job_dict["server"]["cores"],
+            threads=job_dict["server"]["threads"],
+            new_hdf=job_dict["server"]["new_hdf"],
+            run_time=job_dict["server"]["run_time"],
+            memory_limit=job_dict["server"]["memory_limit"],
+            accept_crash=job_dict["server"]["accept_crash"],
+        ),
+        status=job_dict["status"],
+        calculation_input=MurnaghanInput(
+            num_points=input_dict["num_points"],
+            fit_type=input_dict["fit_type"],
+            fit_order=input_dict["fit_order"],
+            vol_range=input_dict["vol_range"],
+            axes=input_dict["axes"],
+            strains=input_dict["strains"],
+            allow_aborted=input_dict["allow_aborted"],
+        ),
+        calculation_output=MurnaghanOutput(
+            energy=job_dict["output"]["energy"],
+            equilibrium_b_prime=job_dict["output"]["equilibrium_b_prime"],
+            equilibrium_bulk_modulus=job_dict["output"]["equilibrium_bulk_modulus"],
+            equilibrium_energy=job_dict["output"]["equilibrium_energy"],
+            equilibrium_volume=job_dict["output"]["equilibrium_volume"],
+            error=job_dict["output"]["error"],
+            id=job_dict["output"]["id"],
+            volume=job_dict["output"]["volume"],
+            structure=job_dict["output"]["structure"],
         ),
     )
 
