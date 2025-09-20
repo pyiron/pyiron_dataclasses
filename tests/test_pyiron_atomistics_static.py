@@ -29,14 +29,16 @@ class TestPyironAtomisticsStatic(TestCase):
             )[hdf5_file.split(".")[0]]
             if hdf5_file in ["sx.h5", "lmp.h5", "vasp.h5"]:
                 self.assertEqual(
-                    get_dataclass(job_dict=job_dict).calculation_output.generic.energy_tot[
-                        -1
-                    ],
+                    get_dataclass(
+                        job_dict=job_dict
+                    ).calculation_output.generic.energy_tot[-1],
                     energy_dict[hdf5_file],
                 )
             elif hdf5_file == "murn.h5":
                 self.assertEqual(
-                    get_dataclass(job_dict=job_dict).calculation_output.equilibrium_bulk_modulus,
+                    get_dataclass(
+                        job_dict=job_dict
+                    ).calculation_output.equilibrium_bulk_modulus,
                     81.04044545801592,
                 )
             else:

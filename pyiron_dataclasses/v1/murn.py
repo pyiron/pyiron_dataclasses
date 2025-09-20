@@ -17,6 +17,7 @@ class MurnaghanInput:
     strains: Optional[list[float]]
     allow_aborted: bool
 
+
 @dataclass
 class MurnaghanOutput:
     energy: np.ndarray
@@ -28,6 +29,7 @@ class MurnaghanOutput:
     id: np.ndarray
     volume: np.ndarray
     structure: Structure
+
 
 @dataclass
 class MurnaghanJob:

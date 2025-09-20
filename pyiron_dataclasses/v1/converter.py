@@ -30,8 +30,8 @@ from pyiron_dataclasses.v1.lammps import (
 )
 from pyiron_dataclasses.v1.murn import (
     MurnaghanInput,
-    MurnaghanOutput,
     MurnaghanJob,
+    MurnaghanOutput,
 )
 from pyiron_dataclasses.v1.sphinx import (
     BornOppenheimer,
@@ -965,7 +965,7 @@ def _convert_murnaghan_job_dict(job_dict):
             id=job_dict["output"]["id"],
             volume=job_dict["output"]["volume"],
             structure=job_dict["output"]["structure"],
-        )
+        ),
     )
 
 
