@@ -1,12 +1,12 @@
 from dataclasses import dataclass
 from typing import List, Optional
 
-from pyiron_dataclasses.v1.atomistic import (
+from pyiron_dataclasses.v1.jobs.atomistic import (
     GenericInput,
     GenericOutput,
     Structure,
 )
-from pyiron_dataclasses.v1.job import (
+from pyiron_dataclasses.v1.jobs.generic import (
     Executable,
     GenericDict,
     Interactive,

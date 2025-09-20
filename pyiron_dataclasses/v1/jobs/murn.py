@@ -3,8 +3,8 @@ from typing import Optional
 
 import numpy as np
 
-from pyiron_dataclasses.v1.atomistic import Structure
-from pyiron_dataclasses.v1.job import Executable, Server
+from pyiron_dataclasses.v1.jobs.atomistic import Structure
+from pyiron_dataclasses.v1.jobs.generic import Server
 
 
 @dataclass

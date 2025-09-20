@@ -3,7 +3,7 @@ import unittest
 from h5io_browser import read_dict_from_hdf
 from pint import UnitRegistry
 
-from pyiron_dataclasses.v1.converter import get_dataclass
+from pyiron_dataclasses import get_dataclass_v1
 
 try:
     from pyiron_atomistics import Project
@@ -44,7 +44,7 @@ class TestPyironAtomisticsLive(unittest.TestCase):
             recursive=True,
             slash="ignore",
         )
-        job_sphinx = get_dataclass(job_dict[job.job_name])
+        job_sphinx = get_dataclass_v1(job_dict[job.job_name])
         self.assertEqual(
             job_sphinx.calculation_output.generic.energy_tot[-1],
             -228.78315943858593 * ureg.eV,
@@ -61,7 +61,7 @@ class TestPyironAtomisticsLive(unittest.TestCase):
             recursive=True,
             slash="ignore",
         )
-        job_sphinx = get_dataclass(job_dict[job.job_name])
+        job_sphinx = get_dataclass_v1(job_dict[job.job_name])
         self.assertEqual(
             job_sphinx.calculation_output.generic.energy_tot[-1],
             -228.78316094884508 * ureg.eV,
@@ -79,7 +79,7 @@ class TestPyironAtomisticsLive(unittest.TestCase):
             recursive=True,
             slash="ignore",
         )
-        job_lammps = get_dataclass(job_dict[job.job_name])
+        job_lammps = get_dataclass_v1(job_dict[job.job_name])
         self.assertEqual(
             job_lammps.calculation_output.generic.energy_tot[-1],
             -13.4486826111902 * ureg.eV,
@@ -97,7 +97,7 @@ class TestPyironAtomisticsLive(unittest.TestCase):
             recursive=True,
             slash="ignore",
         )
-        job_lammps = get_dataclass(job_dict[job.job_name])
+        job_lammps = get_dataclass_v1(job_dict[job.job_name])
         self.assertEqual(len(job_lammps.calculation_output.generic.energy_tot), 11)
 
     def test_lammps_calc_minimize(self):
@@ -112,7 +112,7 @@ class TestPyironAtomisticsLive(unittest.TestCase):
             recursive=True,
             slash="ignore",
         )
-        job_lammps = get_dataclass(job_dict[job.job_name])
+        job_lammps = get_dataclass_v1(job_dict[job.job_name])
         self.assertEqual(
             job_lammps.calculation_output.generic.energy_tot[-1],
             -13.4486826111902 * ureg.eV,
@@ -130,7 +130,7 @@ class TestPyironAtomisticsLive(unittest.TestCase):
             recursive=True,
             slash="ignore",
         )
-        job_murn = get_dataclass(job_dict[murn.job_name])
+        job_murn = get_dataclass_v1(job_dict[murn.job_name])
         self.assertEqual(
             job_murn.calculation_output.equilibrium_bulk_modulus,
             81.0404454580153,
