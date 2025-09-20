@@ -1,4 +1,5 @@
 from typing import Union
+
 from pint import UnitRegistry
 
 from pyiron_dataclasses.v1.jobs.atomistic import (
@@ -79,10 +80,15 @@ def get_dataclass(job_dict: dict) -> Union[LammpsJob, VaspJob, SphinxJob, Murnag
         return _convert_sphinx_job_dict(job_dict=job_dict)
     elif job_dict["TYPE"] == "<class 'pyiron_atomistics.vasp.vasp.Vasp'>":
         return _convert_vasp_job_dict(job_dict=job_dict)
-    elif job_dict["TYPE"] == "<class 'pyiron_atomistics.atomistics.master.murnaghan.Murnaghan'>":
+    elif (
+        job_dict["TYPE"]
+        == "<class 'pyiron_atomistics.atomistics.master.murnaghan.Murnaghan'>"
+    ):
         return _convert_murnaghan_job_dict(job_dict=job_dict)
     else:
-        raise KeyError("JobType {} is not supported by pyiron_dataclass.".format(job_dict["TYPE"]))
+        raise KeyError(
+            "JobType {} is not supported by pyiron_dataclass.".format(job_dict["TYPE"])
+        )
 
 
 def _convert_sphinx_job_dict(job_dict: dict) -> SphinxJob:
