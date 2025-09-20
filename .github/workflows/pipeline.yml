@@ -60,7 +60,28 @@ jobs:
       shell: bash -l {0}
       timeout-minutes: 5
       run: |
-        pip install versioneer[toml]==0.29
+        pip install . --no-deps --no-build-isolation
+        python -m unittest discover tests
+
+  old:
+    needs: [black]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Conda config
+      shell: bash -l {0}
+      run: echo -e "channels:\n  - conda-forge\n" > .condarc
+    - name: Setup Mambaforge
+      uses: conda-incubator/setup-miniconda@v3
+      with:
+        python-version: "3.10"
+        miniforge-version: latest
+        condarc-file: .condarc
+        environment-file: .ci_support/environment-old.yml
+    - name: Test
+      shell: bash -l {0}
+      timeout-minutes: 5
+      run: |
         pip install . --no-deps --no-build-isolation
         python -m unittest discover tests
 
@@ -111,7 +132,6 @@ jobs:
       shell: bash -l {0}
       timeout-minutes: 5
       run: |
-        pip install versioneer[toml]==0.29
         pip install . --no-deps --no-build-isolation
         coverage run
         coverage report
@@ -123,7 +143,7 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
 
   autobot:
-    needs: [minimal, pyiron_atomistics_tests]
+    needs: [minimal, old, pyiron_atomistics_tests]
     permissions:
       contents: write
       pull-requests: write
