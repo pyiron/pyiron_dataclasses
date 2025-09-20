@@ -39,6 +39,32 @@ convert = [
     "pint==0.24.4",
 ]
 
+[tool.ruff]
+exclude = [".ci_support", "tests", "_version.py"]
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+    # flake8-comprehensions
+    "C4",
+    # eradicate
+    "ERA",
+    # pylint
+    "PL",
+]
+ignore = []
+
 [tool.hatch.build]
 include = [
     "pyiron_dataclasses"
