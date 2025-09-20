@@ -26,6 +26,7 @@ jobs:
         python-version: "3.13"
         miniforge-version: latest
         condarc-file: .condarc
+        environment-file: .ci_support/environment-mini.yml
     - name: Build
       shell: bash -l {0}
       run: |
