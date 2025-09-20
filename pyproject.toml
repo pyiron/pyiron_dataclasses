@@ -25,6 +25,7 @@ classifiers = [
 ]
 dependencies = [
     "numpy==2.3.2",
+    "pint==0.25",
 ]
 dynamic = ["version"]
 
@@ -36,7 +37,6 @@ Repository = "https://github.com/pyiron/pyiron_dataclasses"
 [project.optional-dependencies]
 convert = [
     "h5io_browser==0.2.1",
-    "pint==0.25",
 ]
 
 [tool.ruff]
