@@ -1,5 +1,3 @@
-from typing import Union
-
 from pint import UnitRegistry
 
 from pyiron_dataclasses.v1.jobs.atomistic import (
@@ -73,7 +71,7 @@ from pyiron_dataclasses.v1.shared import (
 )
 
 
-def get_dataclass(job_dict: dict) -> Union[LammpsJob, MurnaghanJob, VaspJob, SphinxJob]:
+def get_dataclass(job_dict: dict):
     funct_dict = {
         "<class 'pyiron_atomistics.lammps.lammps.Lammps'>": _convert_lammps_job_dict,
         "<class 'pyiron_atomistics.sphinx.sphinx.Sphinx'>": _convert_sphinx_job_dict,
