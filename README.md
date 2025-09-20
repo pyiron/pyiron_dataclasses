@@ -12,7 +12,7 @@ in those files, without depending on `pyiron_atomistics`. Furthermore, it is not
 Using the `get_dataclass()` function of the built-in converter:
 ```python
 from h5io_browser import read_dict_from_hdf
-from pyiron_dataclasses.v1.converter import get_dataclass
+from pyiron_dataclasses import get_dataclass_v1
 
 job_classes = get_dataclass(
     job_dict=read_dict_from_hdf(
