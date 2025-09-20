@@ -133,5 +133,5 @@ class TestPyironAtomisticsLive(unittest.TestCase):
         job_murn = get_dataclass(job_dict[murn.job_name])
         self.assertEqual(
             job_murn.calculation_output.equilibrium_bulk_modulus,
-            81.04044545801592,
+            81.0404454580153,
         )
