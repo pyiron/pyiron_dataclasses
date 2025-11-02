@@ -64,3 +64,4 @@ Supported versions of `pyiron_atomistics`:
 * `0.8.0` - Sep 30 2025
 * `0.8.1` - Oct 7 2025
 * `0.8.2` - Nov 1 2025
+* `0.8.3` - Nov 1 2025
