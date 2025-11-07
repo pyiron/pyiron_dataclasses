@@ -52,7 +52,7 @@ jobs:
     - name: Setup Mambaforge
       uses: conda-incubator/setup-miniconda@v3
       with:
-        python-version: "3.13"
+        python-version: "3.14"
         miniforge-version: latest
         condarc-file: .condarc
         environment-file: .ci_support/environment-mini.yml
@@ -92,7 +92,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          python-version: "3.14"
           architecture: x64
       - name: Checkout
         uses: actions/checkout@v4
@@ -146,7 +146,7 @@ jobs:
     - name: Setup Mambaforge
       uses: conda-incubator/setup-miniconda@v3
       with:
-        python-version: "3.12"
+        python-version: "3.13"
         miniforge-version: latest
         condarc-file: .condarc
         environment-file: ${{ matrix.environment-file }}
