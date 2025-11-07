@@ -192,7 +192,7 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
 
   autobot:
-    needs: [minimal, old, pyiron_atomistics_tests]
+    needs: [minimal, old, pyiron_atomistics_tests_py312, pyiron_atomistics_tests_py313]
     permissions:
       contents: write
       pull-requests: write
