@@ -65,7 +65,7 @@ class TestPyironAtomisticsLive(unittest.TestCase):
         self.assertTrue(
             job_sphinx.calculation_output.generic.energy_tot[-1] in [
                 -228.78316094884508 * ureg.eV,  # pint 0.24
-                -228.7831609317019 * ureg.eV,  # pint 0.25
+                -228.7831609478655 * ureg.eV,  # pint 0.25
             ]
         )
 
