@@ -64,8 +64,8 @@ class TestPyironAtomisticsLive(unittest.TestCase):
         job_sphinx = get_dataclass_v1(job_dict[job.job_name])
         self.assertTrue(
             job_sphinx.calculation_output.generic.energy_tot[-1] in [
-                -228.78316094884508 * ureg.eV,
-                -228.7831609317019 * ureg.eV,
+                -228.78316094884508 * ureg.eV,  # pint 0.24
+                -228.7831609317019 * ureg.eV,  # pint 0.25
             ]
         )
 
