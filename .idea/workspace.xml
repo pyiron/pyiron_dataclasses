@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="49aae78f-7b85-4ad4-a9f4-c995ae140676" name="Changes" comment="Update to pyiron_atomistics 0.7.17" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="updates" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2pZ5DVpNQoIFGEvxLQTNkHrbRBF" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/janssen/projects/pyiron_dataclasses",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-ce6832f46686-7b97d883f26b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.25557.178" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="49aae78f-7b85-4ad4-a9f4-c995ae140676" name="Changes" comment="" />
+      <created>1732960637968</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1732960637968</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Add type checking based on mypy">
+      <option name="closed" value="true" />
+      <created>1732961592089</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1732961592089</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Scipy update broke the tests">
+      <option name="closed" value="true" />
+      <created>1736427258965</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1736427258965</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Update test environments">
+      <option name="closed" value="true" />
+      <created>1741775523757</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1741775523757</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Add support for recent pyiron_atomistics versions 0.7.2 and 0.7.3">
+      <option name="closed" value="true" />
+      <created>1744117660431</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1744117660431</updated>
+    </task>
+    <task id="LOCAL-00005" summary="update supported pyiron versions">
+      <option name="closed" value="true" />
+      <created>1751880460092</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1751880460092</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Update to pyiron_atomistics 0.7.17">
+      <option name="closed" value="true" />
+      <created>1757577325981</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1757577325981</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add type checking based on mypy" />
+    <MESSAGE value="Add type checking based on mypy (#11)" />
+    <MESSAGE value="Scipy update broke the tests" />
+    <MESSAGE value="Update test environments" />
+    <MESSAGE value="Add support for recent pyiron_atomistics versions 0.7.2 and 0.7.3" />
+    <MESSAGE value="update supported pyiron versions" />
+    <MESSAGE value="Update to pyiron_atomistics 0.7.17" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update to pyiron_atomistics 0.7.17" />
+  </component>
+</project>
