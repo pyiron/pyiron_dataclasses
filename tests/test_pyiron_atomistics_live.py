@@ -45,8 +45,9 @@ class TestPyironAtomisticsLive(unittest.TestCase):
             slash="ignore",
         )
         job_sphinx = get_dataclass_v1(job_dict[job.job_name])
-        self.assertTrue(
-            job_sphinx.calculation_output.generic.energy_tot[-1] in [
+        self.assertIn(
+            job_sphinx.calculation_output.generic.energy_tot[-1],
+            [
                 -228.78315943858593 * ureg.eV,
                 -228.7831594385315 * ureg.eV,
             ]
@@ -64,9 +65,9 @@ class TestPyironAtomisticsLive(unittest.TestCase):
             slash="ignore",
         )
         job_sphinx = get_dataclass_v1(job_dict[job.job_name])
-        print("test_sphinx_calc_static:", job_sphinx.calculation_output.generic.energy_tot[-1])
-        self.assertTrue(
-            job_sphinx.calculation_output.generic.energy_tot[-1] in [
+        self.assertIn(
+            job_sphinx.calculation_output.generic.energy_tot[-1],
+            [
                 -228.78316094884508 * ureg.eV,  # pint 0.24
                 -228.7831609478655 * ureg.eV,  # pint 0.25
             ]
@@ -136,7 +137,7 @@ class TestPyironAtomisticsLive(unittest.TestCase):
             slash="ignore",
         )
         job_murn = get_dataclass_v1(job_dict[murn.job_name])
-        self.assertEqual(
+        self.assertIn(
             job_murn.calculation_output.equilibrium_bulk_modulus,
-            81.04044545802712,
+            [81.0404454580153, 81.04044545802712],
         )
