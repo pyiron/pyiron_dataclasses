@@ -37,7 +37,7 @@ Repository = "https://github.com/pyiron/pyiron_dataclasses"
 
 [project.optional-dependencies]
 convert = [
-    "h5io_browser==0.2.2",
+    "h5io_browser==0.2.10",
 ]
 
 [tool.ruff]
