@@ -42,3 +42,6 @@ Previous versions of `pyiron_atomistics`:
 * `0.8.5` - Nov 30 2025 (Python 3.13)
 * `0.8.6` - Dec 15 2025 (Python 3.13)
 * `0.8.7` - Jan 19 2026 (Python 3.13)
+* `0.8.8` - Apr 29 2026 (Python 3.13)
+* `0.8.9` - Jun 06 2026 (Python 3.13)
+* `0.8.10` - Jul 27 2026 (Python 3.13)
