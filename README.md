@@ -19,7 +19,7 @@ job_classes = get_dataclass(
         file_name=job.project_hdf5.file_name,
         h5_path="/",
         recursive=True,
-        slash='ignore',
+        slash="ignore",
     )[job.job_name]
 )
 job_classes
