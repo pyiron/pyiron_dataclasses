@@ -147,6 +147,8 @@ jobs:
           - environment-file: .ci_support/environment-pyiron-atomistics-0-8-8.yml
           - environment-file: .ci_support/environment-pyiron-atomistics-0-8-9.yml
           - environment-file: .ci_support/environment-pyiron-atomistics-0-8-10.yml
+          - environment-file: .ci_support/environment-pyiron-atomistics-0-8-11.yml
+          - environment-file: .ci_support/environment-pyiron-atomistics-0-8-12.yml
     steps:
     - uses: actions/checkout@v4
     - name: Conda config
@@ -168,7 +170,7 @@ jobs:
         coverage report
         coverage xml
     - name: Upload coverage reports to Codecov
-      if: matrix.environment-file == '.ci_support/environment-pyiron-atomistics-0-8-3.yml'
+      if: matrix.environment-file == '.ci_support/environment-pyiron-atomistics-0-8-12.yml'
       uses: codecov/codecov-action@v5
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
